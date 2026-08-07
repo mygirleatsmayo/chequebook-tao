@@ -1,0 +1,295 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		26C475A4DA83CB6E34006FE6 /* CSVExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9167D79AE2C483643DD80BE3 /* CSVExport.swift */; };
+		AEECC7C203EF51B5ED684187 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EBAFFCBAC67C2B931EA74 /* Filters.swift */; };
+		B7400C690557E68B43D9A54E /* HistoryStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1980167E399D97D802633A2 /* HistoryStats.swift */; };
+		35AFCD1FD58DED5A21620E78 /* ImportParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C890A6B3B01D51D0091ADC /* ImportParsers.swift */; };
+		2C8E81F81C84BA02F27686F5 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99102C2C498EAB775323DAE /* Models.swift */; };
+		BB3CE8658DD4176194413565 /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A1F02C23FD53E3736A1C1D /* Parsing.swift */; };
+		1BDEA11F012A2984F4360FF5 /* ReconcileMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D82B165A87CCF0B7699306 /* ReconcileMath.swift */; };
+		FAED9A0930959D1BC2C48AAA /* RegisterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AA2B7DB57DC1184B6773D1 /* RegisterEngine.swift */; };
+		C6B667CA0E655BD85BC6FC52 /* TransferParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A97FA4249EB95DD9783AE0 /* TransferParsing.swift */; };
+		ADF17FC30EF3FF1FA88D1745 /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2584DA02C99BE3172C1B2D /* AccountSheet.swift */; };
+		D074B6AF319B6AFF2C488073 /* ChequebookTaoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5DDBB2042FDE855C2B59E3 /* ChequebookTaoApp.swift */; };
+		9F18B7872BE92595BFAC3B79 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF897A2D6D06E454A05DFBF /* Formatters.swift */; };
+		534DA1FAE0CEE4521074F54A /* RegisterDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040E8A726F0420DBCED94122 /* RegisterDocument.swift */; };
+		3AFD6D896F0D901EA0FEA918 /* RegisterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224A2F6E28F3BC14D580256E /* RegisterTableView.swift */; };
+		B39164002CE4833D11B0FDAC /* RegisterWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD3C598CCC658B50B9A0F3B /* RegisterWindowView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9167D79AE2C483643DD80BE3 /* CSVExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExport.swift; sourceTree = "<group>"; };
+		582EBAFFCBAC67C2B931EA74 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
+		A1980167E399D97D802633A2 /* HistoryStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStats.swift; sourceTree = "<group>"; };
+		C7C890A6B3B01D51D0091ADC /* ImportParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportParsers.swift; sourceTree = "<group>"; };
+		D99102C2C498EAB775323DAE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		F4A1F02C23FD53E3736A1C1D /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
+		60D82B165A87CCF0B7699306 /* ReconcileMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconcileMath.swift; sourceTree = "<group>"; };
+		A3AA2B7DB57DC1184B6773D1 /* RegisterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEngine.swift; sourceTree = "<group>"; };
+		72A97FA4249EB95DD9783AE0 /* TransferParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferParsing.swift; sourceTree = "<group>"; };
+		5F2584DA02C99BE3172C1B2D /* AccountSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSheet.swift; sourceTree = "<group>"; };
+		AD5DDBB2042FDE855C2B59E3 /* ChequebookTaoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChequebookTaoApp.swift; sourceTree = "<group>"; };
+		2EF897A2D6D06E454A05DFBF /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		040E8A726F0420DBCED94122 /* RegisterDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDocument.swift; sourceTree = "<group>"; };
+		224A2F6E28F3BC14D580256E /* RegisterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTableView.swift; sourceTree = "<group>"; };
+		BCD3C598CCC658B50B9A0F3B /* RegisterWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterWindowView.swift; sourceTree = "<group>"; };
+		5731A3B884EADC39D41623A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2029A639DD8022543C17416B /* ChequebookTao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChequebookTao.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		518DA81DB9B99529C0C0AEBE = {
+			isa = PBXGroup;
+			children = (
+				1507F349832A04790D3C1273 /* Sources */,
+				547D009064F7C3F13BEF3460 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1507F349832A04790D3C1273 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DA3EB179D6EE613492F299B1 /* Core */,
+				82CF2A43A7100F086D7FCFDD /* App */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		DA3EB179D6EE613492F299B1 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9167D79AE2C483643DD80BE3 /* CSVExport.swift */,
+				582EBAFFCBAC67C2B931EA74 /* Filters.swift */,
+				A1980167E399D97D802633A2 /* HistoryStats.swift */,
+				C7C890A6B3B01D51D0091ADC /* ImportParsers.swift */,
+				D99102C2C498EAB775323DAE /* Models.swift */,
+				F4A1F02C23FD53E3736A1C1D /* Parsing.swift */,
+				60D82B165A87CCF0B7699306 /* ReconcileMath.swift */,
+				A3AA2B7DB57DC1184B6773D1 /* RegisterEngine.swift */,
+				72A97FA4249EB95DD9783AE0 /* TransferParsing.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		82CF2A43A7100F086D7FCFDD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5F2584DA02C99BE3172C1B2D /* AccountSheet.swift */,
+				AD5DDBB2042FDE855C2B59E3 /* ChequebookTaoApp.swift */,
+				2EF897A2D6D06E454A05DFBF /* Formatters.swift */,
+				040E8A726F0420DBCED94122 /* RegisterDocument.swift */,
+				224A2F6E28F3BC14D580256E /* RegisterTableView.swift */,
+				BCD3C598CCC658B50B9A0F3B /* RegisterWindowView.swift */,
+				5731A3B884EADC39D41623A6 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		547D009064F7C3F13BEF3460 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2029A639DD8022543C17416B /* ChequebookTao.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E3435DDA2687639586BF0B70 /* ChequebookTao */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2F62AAE534BA46EC59716F3 /* Build configuration list for PBXNativeTarget "ChequebookTao" */;
+			buildPhases = (
+				7A70D71C385290AF96BF1031 /* Sources */,
+				424153ED3CD079DB4DB459AF /* Frameworks */,
+				285BB1C1430063331E9F5DD0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChequebookTao;
+			productName = ChequebookTao;
+			productReference = 2029A639DD8022543C17416B /* ChequebookTao.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = 7EF2517A8FE63F4681EC5EEA /* Build configuration list for PBXProject "ChequebookTao" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 518DA81DB9B99529C0C0AEBE;
+			productRefGroup = 547D009064F7C3F13BEF3460 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E3435DDA2687639586BF0B70 /* ChequebookTao */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A70D71C385290AF96BF1031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26C475A4DA83CB6E34006FE6 /* CSVExport.swift in Sources */,
+				AEECC7C203EF51B5ED684187 /* Filters.swift in Sources */,
+				B7400C690557E68B43D9A54E /* HistoryStats.swift in Sources */,
+				35AFCD1FD58DED5A21620E78 /* ImportParsers.swift in Sources */,
+				2C8E81F81C84BA02F27686F5 /* Models.swift in Sources */,
+				BB3CE8658DD4176194413565 /* Parsing.swift in Sources */,
+				1BDEA11F012A2984F4360FF5 /* ReconcileMath.swift in Sources */,
+				FAED9A0930959D1BC2C48AAA /* RegisterEngine.swift in Sources */,
+				C6B667CA0E655BD85BC6FC52 /* TransferParsing.swift in Sources */,
+				ADF17FC30EF3FF1FA88D1745 /* AccountSheet.swift in Sources */,
+				D074B6AF319B6AFF2C488073 /* ChequebookTaoApp.swift in Sources */,
+				9F18B7872BE92595BFAC3B79 /* Formatters.swift in Sources */,
+				534DA1FAE0CEE4521074F54A /* RegisterDocument.swift in Sources */,
+				3AFD6D896F0D901EA0FEA918 /* RegisterTableView.swift in Sources */,
+				B39164002CE4833D11B0FDAC /* RegisterWindowView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		424153ED3CD079DB4DB459AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		285BB1C1430063331E9F5DD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C19BB360D63F1BA9F02BAB59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		88A29AB70C762FCDF6D9A1D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		331C5106741EE8E14B752D88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mygirleatsmayo.ChequebookTao;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		256639833029BCA847F093AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mygirleatsmayo.ChequebookTao;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7EF2517A8FE63F4681EC5EEA /* Build configuration list for PBXProject "ChequebookTao" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C19BB360D63F1BA9F02BAB59 /* Debug */,
+				88A29AB70C762FCDF6D9A1D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2F62AAE534BA46EC59716F3 /* Build configuration list for PBXNativeTarget "ChequebookTao" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				331C5106741EE8E14B752D88 /* Debug */,
+				256639833029BCA847F093AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
