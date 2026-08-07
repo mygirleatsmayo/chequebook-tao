@@ -131,8 +131,9 @@ public enum CSVParser {
                 switch ch {
                 case "\"" where field.isEmpty: inQuotes = true
                 case delimiter: endField()
-                case "\r": if let next = iterator.next() { if next == "\n" { endRow() } else { endRow(); pending = next } } else { endRow() }
-                case "\n": endRow()
+                // NOTE: "\r\n" is a single grapheme-cluster Character in Swift,
+                // so it needs its own case — it matches neither "\r" nor "\n".
+                case "\r\n", "\r", "\n": endRow()
                 default: field.append(ch)
                 }
             }
@@ -343,16 +344,18 @@ public enum BankPasteParser {
         }
         guard let cashFlow = amount, let aIndex = amountIndex else { return nil }
 
-        // Description: the non-money fields between date and amount, else after amount.
-        var descriptionParts: [String] = []
+        // Description: candidate fields between date and amount (bank tables put
+        // Description/Type/Status there). Several candidates means extra columns
+        // like Type "Card" or Status snuck in — the LONGEST field is the
+        // description; short type words lose.
+        var candidates: [String] = []
         for (index, field) in fields.enumerated() {
-            guard index != dIndex, index != aIndex else { continue }
-            if index > aIndex, looksLikeMoney(field) { continue } // trailing balance
-            if index < dIndex { continue }
+            guard index > dIndex, index != aIndex else { continue }
+            if looksLikeMoney(field) { continue } // amount/balance columns
             if looksLikeStatus(field) { continue }
-            descriptionParts.append(field)
+            candidates.append(field)
         }
-        let name = descriptionParts.joined(separator: " ").trimmingCharacters(in: .whitespaces)
+        let name = (candidates.max { $0.count < $1.count } ?? "").trimmingCharacters(in: .whitespaces)
         guard !name.isEmpty else { return nil }
 
         // Pull "CHECK: 231" style check numbers out of the description.
