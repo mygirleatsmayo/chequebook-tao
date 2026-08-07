@@ -1,11 +1,7 @@
-# macOS
 .DS_Store
-**/.DS_Store
-
-# Secrets and credentials
-.env
-.env.*
-!.env.example
-*.pem
-*.key
-.mayo/scratch-todo.md
+build/
+.build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+.swiftpm/
