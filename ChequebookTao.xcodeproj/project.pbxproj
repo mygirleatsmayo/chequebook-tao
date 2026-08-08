@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D5CE4AA03902813A59387B7 /* BinaryPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D874A170C113A41DBF1D16 /* BinaryPlist.swift */; };
+		73253CA26AA7B2BFAF33AD73 /* CBTaoImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358C093C1EA044FC948A5305 /* CBTaoImport.swift */; };
 		26C475A4DA83CB6E34006FE6 /* CSVExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9167D79AE2C483643DD80BE3 /* CSVExport.swift */; };
 		AEECC7C203EF51B5ED684187 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EBAFFCBAC67C2B931EA74 /* Filters.swift */; };
 		B7400C690557E68B43D9A54E /* HistoryStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1980167E399D97D802633A2 /* HistoryStats.swift */; };
 		35AFCD1FD58DED5A21620E78 /* ImportParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C890A6B3B01D51D0091ADC /* ImportParsers.swift */; };
 		2C8E81F81C84BA02F27686F5 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = D99102C2C498EAB775323DAE /* Models.swift */; };
+		557AEDCDEC35CEEB1612E213 /* NameSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8F2E7ACC53D92D25E4F238 /* NameSuggestions.swift */; };
 		BB3CE8658DD4176194413565 /* Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A1F02C23FD53E3736A1C1D /* Parsing.swift */; };
 		1BDEA11F012A2984F4360FF5 /* ReconcileMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D82B165A87CCF0B7699306 /* ReconcileMath.swift */; };
 		FAED9A0930959D1BC2C48AAA /* RegisterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AA2B7DB57DC1184B6773D1 /* RegisterEngine.swift */; };
@@ -25,11 +28,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25D874A170C113A41DBF1D16 /* BinaryPlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryPlist.swift; sourceTree = "<group>"; };
+		358C093C1EA044FC948A5305 /* CBTaoImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBTaoImport.swift; sourceTree = "<group>"; };
 		9167D79AE2C483643DD80BE3 /* CSVExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExport.swift; sourceTree = "<group>"; };
 		582EBAFFCBAC67C2B931EA74 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		A1980167E399D97D802633A2 /* HistoryStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStats.swift; sourceTree = "<group>"; };
 		C7C890A6B3B01D51D0091ADC /* ImportParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportParsers.swift; sourceTree = "<group>"; };
 		D99102C2C498EAB775323DAE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		EF8F2E7ACC53D92D25E4F238 /* NameSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSuggestions.swift; sourceTree = "<group>"; };
 		F4A1F02C23FD53E3736A1C1D /* Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parsing.swift; sourceTree = "<group>"; };
 		60D82B165A87CCF0B7699306 /* ReconcileMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReconcileMath.swift; sourceTree = "<group>"; };
 		A3AA2B7DB57DC1184B6773D1 /* RegisterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterEngine.swift; sourceTree = "<group>"; };
@@ -65,11 +71,14 @@
 		DA3EB179D6EE613492F299B1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				25D874A170C113A41DBF1D16 /* BinaryPlist.swift */,
+				358C093C1EA044FC948A5305 /* CBTaoImport.swift */,
 				9167D79AE2C483643DD80BE3 /* CSVExport.swift */,
 				582EBAFFCBAC67C2B931EA74 /* Filters.swift */,
 				A1980167E399D97D802633A2 /* HistoryStats.swift */,
 				C7C890A6B3B01D51D0091ADC /* ImportParsers.swift */,
 				D99102C2C498EAB775323DAE /* Models.swift */,
+				EF8F2E7ACC53D92D25E4F238 /* NameSuggestions.swift */,
 				F4A1F02C23FD53E3736A1C1D /* Parsing.swift */,
 				60D82B165A87CCF0B7699306 /* ReconcileMath.swift */,
 				A3AA2B7DB57DC1184B6773D1 /* RegisterEngine.swift */,
@@ -153,11 +162,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D5CE4AA03902813A59387B7 /* BinaryPlist.swift in Sources */,
+				73253CA26AA7B2BFAF33AD73 /* CBTaoImport.swift in Sources */,
 				26C475A4DA83CB6E34006FE6 /* CSVExport.swift in Sources */,
 				AEECC7C203EF51B5ED684187 /* Filters.swift in Sources */,
 				B7400C690557E68B43D9A54E /* HistoryStats.swift in Sources */,
 				35AFCD1FD58DED5A21620E78 /* ImportParsers.swift in Sources */,
 				2C8E81F81C84BA02F27686F5 /* Models.swift in Sources */,
+				557AEDCDEC35CEEB1612E213 /* NameSuggestions.swift in Sources */,
 				BB3CE8658DD4176194413565 /* Parsing.swift in Sources */,
 				1BDEA11F012A2984F4360FF5 /* ReconcileMath.swift in Sources */,
 				FAED9A0930959D1BC2C48AAA /* RegisterEngine.swift in Sources */,
