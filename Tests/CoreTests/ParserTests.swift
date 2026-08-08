@@ -170,16 +170,43 @@ final class BankPasteTests: XCTestCase {
 
 final class ExportAndDuplicateTests: XCTestCase {
 
-    func testCSVExportRoundTripsThroughImporter() {
+    /// Export must match the ORIGINAL app's format (verified against real
+    /// exports): uppercase headers with SUB ACCOUNT first, quoted non-empty
+    /// fields, currency symbols, locale short dates.
+    func testCSVExportMatchesOriginalFormatAndRoundTrips() {
         let (file, checking, _, _) = sampleFile()
+        let account = file.account(id: checking)!
         let rows = RegisterEngine.rows(for: checking, in: file)
-        let csv = CSVExporter.export(rows: rows, accountType: .deposit, calendar: cal)
-        XCTAssertTrue(csv.hasPrefix("Date,Chk#,Transaction Name,Withdraw,Deposit,Balance,Memo"))
+        let csv = CSVExporter.export(rows: rows, account: account, locale: Locale(identifier: "en_GB"))
 
-        let reimported = CSVParser.parse(csv)
+        XCTAssertTrue(csv.hasPrefix("SUB ACCOUNT,DATE,CHECK#,TRANSACTION NAME,WITHDRAW,DEPOSIT,BALANCE,MEMO"))
+        XCTAssertTrue(csv.contains("\"principalAcct\""))
+        XCTAssertTrue(csv.contains("£45.00") || csv.contains("£45.00".replacingOccurrences(of: "£", with: "\u{00a3}")))
+
+        // Old-app exports must come back in losslessly (UK dates, £ amounts).
+        let reimported = CSVParser.parse(csv, dateOrder: .dayFirst)
         XCTAssertEqual(reimported.transactions.count, rows.count)
         XCTAssertEqual(reimported.transactions[0].amount, rows[0].amount)
         XCTAssertEqual(reimported.transactions[3].amount, dec("1075"))
+        XCTAssertEqual(reimported.skippedLines, 0)
+    }
+
+    /// A verbatim-shaped sample of the original app's export (synthetic rows).
+    func testOldAppExportShapeImports() {
+        let csv = """
+        SUB ACCOUNT,DATE,CHECK#,TRANSACTION NAME,WITHDRAW,DEPOSIT,BALANCE,MEMO
+        "principalAcct","26/06/20",,"start",,"£300.00","£300.00",
+        "principalAcct","02/12/21",,"first pint","£4.00",,"£296.00","xx"
+        "principalAcct","15/12/21",,"bookshop","£13.00",,"£283.00","xxx"
+        """
+        let result = CSVParser.parse(csv, dateOrder: .dayFirst)
+        XCTAssertEqual(result.transactions.count, 3)
+        XCTAssertEqual(result.transactions[0].date, day(2020, 6, 26))
+        XCTAssertEqual(result.transactions[0].amount, dec("300"))
+        XCTAssertEqual(result.transactions[1].amount, dec("-4"))
+        XCTAssertEqual(result.transactions[1].name, "first pint")
+        XCTAssertEqual(result.transactions[2].memo, "xxx")
+        XCTAssertEqual(result.skippedLines, 0)
     }
 
     func testDuplicateDetection() {
