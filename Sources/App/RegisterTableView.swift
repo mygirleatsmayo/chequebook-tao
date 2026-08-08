@@ -203,6 +203,52 @@ struct RegisterTableView: NSViewRepresentable {
             reload()
         }
 
+        // MARK: Name autocomplete ("learned" suggestions, like the original)
+
+        private var isCompleting = false
+        private var lastEditedLength = 0
+
+        func controlTextDidChange(_ notification: Notification) {
+            guard let field = notification.object as? NSTextField else { return }
+            let (_, column) = rowAndColumn(fromTag: field.tag)
+            guard column == .name, !isCompleting else { return }
+            let text = field.stringValue
+            let previous = lastEditedLength
+            lastEditedLength = text.count
+            // Only pop suggestions on a single typed character — never on
+            // deletes, and never re-open right after a completion is accepted.
+            guard text.count == previous + 1, !text.isEmpty else { return }
+            guard let editor = field.currentEditor() as? NSTextView else { return }
+            isCompleting = true
+            editor.complete(nil)
+            isCompleting = false
+        }
+
+        func control(
+            _ control: NSControl, textView: NSTextView, completions words: [String],
+            forPartialWordRange charRange: NSRange, indexOfSelectedItem index: UnsafeMutablePointer<Int>
+        ) -> [String] {
+            let (_, column) = rowAndColumn(fromTag: control.tag)
+            guard column == .name else { return [] }
+            index.pointee = -1
+
+            let full = textView.string
+            let suggestions = NameSuggestions.suggestions(
+                forPrefix: full, accountID: parent.accountID, in: parent.document.file
+            )
+            // The completion replaces only charRange (the trailing partial
+            // word). Every suggestion starts with the whole typed text, so
+            // strip whatever sits before charRange from each suggestion.
+            let ns = full as NSString
+            let head = ns.substring(to: min(charRange.location, ns.length)).lowercased()
+            return suggestions.compactMap { suggestion in
+                let lower = suggestion.lowercased()
+                guard lower.hasPrefix(head) else { return nil }
+                let tail = String(suggestion.dropFirst(head.count))
+                return tail.isEmpty ? nil : tail
+            }
+        }
+
         // MARK: Editing
 
         private func tagFor(row: Int, column: ColumnID) -> Int {
