@@ -1,44 +1,67 @@
 import Foundation
 
-/// Export an account's register (complete or filtered) as CSV — same purpose
-/// as the original's "Export Account Transaction Lists as a CSV File".
+/// Export an account's register as CSV in the ORIGINAL app's exact format
+/// (verified against real exports):
+///
+///   SUB ACCOUNT,DATE,CHECK#,TRANSACTION NAME,WITHDRAW,DEPOSIT,BALANCE,MEMO
+///   "principalAcct","26/06/20",,"start",,"£300.00","£300.00",
+///
+/// - Header row unquoted; data fields quoted (empty fields stay empty).
+/// - Amounts carry the locale currency symbol.
+/// - Dates use the locale's short format (day-first in the UK, like the
+///   original on a UK Mac).
+/// - Credit accounts substitute CHARGE/PAYMENT for WITHDRAW/DEPOSIT.
 public enum CSVExporter {
 
     public static func export(
         rows: [RegisterRow],
-        accountType: AccountType,
-        calendar: Calendar = .current
+        account: Account,
+        locale: Locale = .current
     ) -> String {
-        let outColumn = accountType == .deposit ? "Withdraw" : "Charge"
-        let inColumn = accountType == .deposit ? "Deposit" : "Payment"
+        let money = NumberFormatter()
+        money.numberStyle = .currency
+        money.locale = locale
+
+        let date = DateFormatter()
+        date.locale = locale
+        date.dateStyle = .short
+        date.timeStyle = .none
+
+        let outColumn = account.type == .deposit ? "WITHDRAW" : "CHARGE"
+        let inColumn = account.type == .deposit ? "DEPOSIT" : "PAYMENT"
+
         var lines: [String] = []
-        lines.append(["Date", "Chk#", "Transaction Name", outColumn, inColumn, "Balance", "Memo"]
-            .map(quote).joined(separator: ","))
+        lines.append("SUB ACCOUNT,DATE,CHECK#,TRANSACTION NAME,\(outColumn),\(inColumn),BALANCE,MEMO")
+
+        func subaccountName(_ id: UUID?) -> String {
+            guard let id else { return "principalAcct" }
+            return account.subaccounts.first { $0.id == id }?.name ?? "principalAcct"
+        }
+        func moneyString(_ value: Decimal) -> String {
+            money.string(from: NSDecimalNumber(decimal: value)) ?? "\(value)"
+        }
 
         for row in rows {
-            let comps = calendar.dateComponents([.year, .month, .day], from: row.date)
-            let date = String(format: "%04d-%02d-%02d", comps.year ?? 0, comps.month ?? 0, comps.day ?? 0)
-            let outAmount = row.amount < 0 ? plain(-row.amount) : ""
-            let inAmount = row.amount >= 0 && row.amount != 0 ? plain(row.amount) : ""
-            lines.append([
-                date, row.checkNumber, row.displayName, outAmount, inAmount,
-                plain(row.balance), row.memo
-            ].map(quote).joined(separator: ","))
+            let outAmount = row.amount < 0 ? moneyString(-row.amount) : ""
+            let inAmount = row.amount > 0 ? moneyString(row.amount) : ""
+            let fields = [
+                subaccountName(row.subaccountID),
+                date.string(from: row.date),
+                row.checkNumber,
+                row.displayName,
+                outAmount,
+                inAmount,
+                moneyString(row.balance),
+                row.memo,
+            ]
+            lines.append(fields.map(quoteUnlessEmpty).joined(separator: ","))
         }
         return lines.joined(separator: "\n") + "\n"
     }
 
-    static func plain(_ value: Decimal) -> String {
-        var rounded = Decimal()
-        var source = value
-        NSDecimalRound(&rounded, &source, 2, .bankers)
-        return NSDecimalNumber(decimal: rounded).stringValue
-    }
-
-    static func quote(_ field: String) -> String {
-        if field.contains(",") || field.contains("\"") || field.contains("\n") {
-            return "\"" + field.replacingOccurrences(of: "\"", with: "\"\"") + "\""
-        }
-        return field
+    /// The original quotes every non-empty field and leaves empty ones bare.
+    static func quoteUnlessEmpty(_ field: String) -> String {
+        guard !field.isEmpty else { return "" }
+        return "\"" + field.replacingOccurrences(of: "\"", with: "\"\"") + "\""
     }
 }
