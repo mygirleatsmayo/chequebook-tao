@@ -31,10 +31,20 @@ struct SettingsView: View {
             Text("Currency symbol and date display follow your macOS language & region settings.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
+            Text(appVersionLabel)
+                .font(.callout)
+                .foregroundStyle(.tertiary)
         }
         .padding(20)
         .frame(width: 380)
     }
+}
+
+private var appVersionLabel: String {
+    let info = Bundle.main.infoDictionary
+    let short = info?["CFBundleShortVersionString"] as? String ?? "?"
+    let build = info?["CFBundleVersion"] as? String ?? "?"
+    return "Version \(short) (\(build))"
 }
 
 enum AppSettings {

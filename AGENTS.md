@@ -27,10 +27,31 @@ Break one and balances silently go wrong:
 - The unallocated subaccount is derived, never stored.
 - `.chq` is versioned JSON and stays readable in a text editor.
 
-## Releasing
+## Versioning
+
+`VERSION` is the source of truth. Two lines:
+
+1. Marketing version (`0.2.0`) — what testers see. Bump for every binary you hand someone.
+2. Build number (`2`) — integer, always increases. Never reuse a pair.
+
+Then regenerate the Xcode project so About and Get Info match:
 
 ```sh
-git tag v0.1.0 && git push --tags
+python3 Tools/generate_project.py
 ```
 
-CI zips the app onto a GitHub Release. CI itself lives at `Tools/ci.yml`, parked outside `.github/workflows/` because GitHub blocks integrations lacking the `workflow` scope from writing there — moving it is a human step through the web UI.
+Do not ship two builds that both say `0.2.0 (2)`.
+
+## Worktrees
+
+Directory name equals the branch: `.worktrees/<branch>`. For a tester drop, name the branch after the version (`v0.2.0`) so the folder, the About panel, and the git branch agree.
+
+## Releasing
+
+Bump `VERSION`, regenerate, commit, then tag the marketing version:
+
+```sh
+git tag v0.2.0 && git push --tags
+```
+
+The tag must match line 1 of `VERSION`. CI zips the app onto a GitHub Release.
