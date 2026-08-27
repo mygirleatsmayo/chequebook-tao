@@ -17,8 +17,23 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_NAME = "ChequebookTao"
 BUNDLE_ID = "com.mygirleatsmayo.ChequebookTao"
 DEPLOYMENT_TARGET = "14.0"
-MARKETING_VERSION = "0.1.0"
-PROJECT_VERSION = "1"
+
+
+def read_version():
+    """Marketing version and build number from the VERSION file.
+
+    Line 1 is CFBundleShortVersionString (0.2.0). Line 2 is CFBundleVersion,
+    a monotonically increasing integer. Blank lines and # comments are ignored.
+    """
+    path = os.path.join(ROOT, "VERSION")
+    with open(path) as handle:
+        lines = [line.strip() for line in handle if line.strip() and not line.startswith("#")]
+    if len(lines) < 2:
+        sys.exit(f"VERSION must contain a marketing version and a build number, got {lines!r}")
+    return lines[0], lines[1]
+
+
+MARKETING_VERSION, PROJECT_VERSION = read_version()
 
 
 def uid(key: str) -> str:

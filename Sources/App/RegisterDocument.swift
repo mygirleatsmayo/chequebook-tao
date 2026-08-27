@@ -16,7 +16,17 @@ extension UTType {
 final class RegisterDocument: ReferenceFileDocument, ObservableObject {
     typealias Snapshot = RegisterFile
 
-    static var readableContentTypes: [UTType] { [.chequebookRegister, .legacyCBTao] }
+    static var readableContentTypes: [UTType] {
+        var types: [UTType] = [.chequebookRegister, .legacyCBTao]
+        // When the ORIGINAL app is installed, its exported UTI owns the .CBTao
+        // extension and outranks our imported declaration — the same file then
+        // resolves to an identifier we can't know statically. Accept whatever
+        // type the user's system actually assigns to the extension.
+        if let resolved = UTType(filenameExtension: "cbtao"), !types.contains(resolved) {
+            types.append(resolved)
+        }
+        return types
+    }
     static var writableContentTypes: [UTType] { [.chequebookRegister] }
 
     @Published var file: RegisterFile
