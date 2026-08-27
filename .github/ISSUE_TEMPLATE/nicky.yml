@@ -1,5 +1,5 @@
 name: Nicky
-description: Tell Lucas what broke or what you want changed.
+description: Bug or a change you want. For Nicky.
 title: "[Nicky] "
 body:
   - type: checkboxes
@@ -9,14 +9,43 @@ body:
       options:
         - label: Yes, I'm Nicky.
           required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is this
+      options:
+        - Something is broken
+        - I want this changed
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Chequebook Tao → Settings. Looks like 0.2.0 (2).
+      placeholder: 0.2.0 (2)
+    validations:
+      required: true
   - type: textarea
     id: happened
     attributes:
-      label: What happened
-      description: What you clicked, what you expected, what you got instead.
+      label: What happened, or what you want
+      description: Broken — what you clicked, what you expected, what you got. A change — what you wish it did.
       placeholder: I opened August. I expected my accounts. I got “could not be opened.”
     validations:
       required: true
+  - type: input
+    id: file
+    attributes:
+      label: Which file
+      description: The file name. If Finder shows an ending, say whether it is .CBTao or .chq. Skip this if there is no file.
+      placeholder: August 2026.chq
+  - type: checkboxes
+    id: old_app
+    attributes:
+      label: Old app
+      options:
+        - label: The old Checkbook Tao is still on this Mac.
   - type: textarea
     id: extras
     attributes:
