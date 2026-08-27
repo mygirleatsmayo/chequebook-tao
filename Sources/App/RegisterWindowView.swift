@@ -13,6 +13,10 @@ struct RegisterWindowView: View {
     @State private var sortAscending = true
     @State private var accountSheet: AccountSheetMode?
 
+    // Layout preferences that survive closing and reopening files.
+    @AppStorage("accountsPaneWidth") private var accountsPaneWidth = 380.0
+    @AppStorage("accountColumns") private var accountColumns: TableColumnCustomization<AccountListRow>
+
     var body: some View {
         VStack(spacing: 0) {
             if let account = selectedAccount, account.type == .credit {
@@ -21,7 +25,10 @@ struct RegisterWindowView: View {
 
             HSplitView {
                 accountsPane
-                    .frame(minWidth: 320, idealWidth: 380, maxWidth: 520)
+                    .frame(minWidth: 200, idealWidth: accountsPaneWidth, maxWidth: 520)
+                    .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width in
+                        accountsPaneWidth = width
+                    }
                 registerPane
                     .frame(minWidth: 480, maxWidth: .infinity)
             }
@@ -65,7 +72,9 @@ struct RegisterWindowView: View {
 
     private var accountsPane: some View {
         VStack(spacing: 0) {
-            Table(of: AccountListRow.self, selection: $selectedAccountID) {
+            // Right-clicking the header toggles Balance/Projected visibility;
+            // the choice persists app-wide via `accountColumns`.
+            Table(of: AccountListRow.self, selection: $selectedAccountID, columnCustomization: $accountColumns) {
                 TableColumn("Account") { row in
                     HStack(spacing: 6) {
                         Text(row.typeSymbol)
@@ -79,11 +88,13 @@ struct RegisterWindowView: View {
                         .foregroundStyle(row.isCredit ? Color.red : Color.primary)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
+                .customizationID("balance")
                 TableColumn("Projected") { row in
                     Text(Format.money(row.projected))
                         .foregroundStyle(row.isCredit ? Color.red : Color.primary)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
+                .customizationID("projected")
             } rows: {
                 ForEach(accountRows) { row in
                     TableRow(row)
@@ -110,11 +121,15 @@ struct RegisterWindowView: View {
 
     private var totalsStrip: some View {
         let totals = RegisterEngine.totals(in: document.file)
+        // The per-type breakdown only means something once both types exist.
+        let hasCreditAccounts = document.file.accounts.contains { $0.type == .credit }
         return HStack(spacing: 0) {
-            totalCell("Deposit Accts:", Format.money(totals.depositTotal), color: .primary)
-            Divider().frame(height: 28)
-            totalCell("Credit Accts:", Format.money(totals.creditTotal), color: .red)
-            Divider().frame(height: 28)
+            if hasCreditAccounts {
+                totalCell("Deposit Accts:", Format.money(totals.depositTotal), color: .primary)
+                Divider().frame(height: 28)
+                totalCell("Credit Accts:", Format.money(totals.creditTotal), color: .red)
+                Divider().frame(height: 28)
+            }
             totalCell("Total Balance:", Format.money(totals.total), color: .primary)
         }
         .padding(.vertical, 4)

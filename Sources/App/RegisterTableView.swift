@@ -28,6 +28,12 @@ struct RegisterTableView: NSViewRepresentable {
 
         context.coordinator.table = table
         context.coordinator.configureColumns(for: accountType)
+        // Autosave restores column order and widths (set AFTER the columns
+        // exist so the saved layout is applied, not overwritten by defaults).
+        table.autosaveTableColumns = true
+        table.autosaveName = "register"
+        context.coordinator.applyHiddenColumns()
+        context.coordinator.installHeaderMenu()
         table.dataSource = context.coordinator
         table.delegate = context.coordinator
 
@@ -51,7 +57,7 @@ struct RegisterTableView: NSViewRepresentable {
     // MARK: - Coordinator
 
     @MainActor
-    final class Coordinator: NSObject, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
+    final class Coordinator: NSObject, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NSMenuDelegate {
         var parent: RegisterTableView
         weak var table: NSTableView?
         private var rows: [RegisterRow] = []
@@ -67,32 +73,77 @@ struct RegisterTableView: NSViewRepresentable {
             case date, check, name, out, `in`, balance, memo
         }
 
+        /// Build the columns once; on account-type changes only the two
+        /// money-column titles differ. Never remove/re-add columns — that
+        /// would discard the user's saved order, widths, and visibility.
         func configureColumns(for type: AccountType) {
             guard let table else { return }
             configuredType = type
-            for column in table.tableColumns {
-                table.removeTableColumn(column)
+            if table.tableColumns.isEmpty {
+                let specs: [(ColumnID, String, CGFloat, NSTextAlignment)] = [
+                    (.date, "Date", 76, .left),
+                    (.check, "Chk#", 48, .left),
+                    (.name, "Name", 240, .left),
+                    (.out, "Withdraw", 90, .right),
+                    (.in, "Deposit", 90, .right),
+                    (.balance, "Balance", 100, .right),
+                    (.memo, "Memo", 160, .left),
+                ]
+                for (id, title, width, alignment) in specs {
+                    let column = NSTableColumn(identifier: .init(id.rawValue))
+                    column.title = title
+                    column.width = width
+                    column.minWidth = 40
+                    if id == .name || id == .memo { column.maxWidth = 10_000 }
+                    column.headerCell.alignment = alignment
+                    table.addTableColumn(column)
+                }
             }
-            let specs: [(ColumnID, String, CGFloat, NSTextAlignment)] = [
-                (.date, "Date", 76, .left),
-                (.check, "Chk#", 48, .left),
-                (.name, "Transaction Name", 240, .left),
-                (.out, type == .deposit ? "Withdraw" : "Charge", 90, .right),
-                (.in, type == .deposit ? "Deposit" : "Payment", 90, .right),
-                (.balance, "Balance", 100, .right),
-                (.memo, "Memo", 160, .left),
-            ]
-            for (id, title, width, alignment) in specs {
-                let column = NSTableColumn(identifier: .init(id.rawValue))
-                column.title = title
-                column.width = width
-                column.minWidth = 40
-                if id == .name || id == .memo { column.maxWidth = 10_000 }
-                column.headerCell.alignment = alignment
-                table.addTableColumn(column)
-            }
+            column(.out)?.title = type == .deposit ? "Withdraw" : "Charge"
+            column(.in)?.title = type == .deposit ? "Deposit" : "Payment"
             // Date header shows a sort arrow; clicking toggles.
             updateSortIndicator()
+        }
+
+        private func column(_ id: ColumnID) -> NSTableColumn? {
+            table?.tableColumns.first { $0.identifier.rawValue == id.rawValue }
+        }
+
+        // MARK: Column visibility (right-click the header to toggle)
+
+        private static let hiddenColumnsKey = "hiddenRegisterColumns"
+
+        func applyHiddenColumns() {
+            let hidden = Set(UserDefaults.standard.stringArray(forKey: Self.hiddenColumnsKey) ?? [])
+            for column in table?.tableColumns ?? [] where column.identifier.rawValue != ColumnID.name.rawValue {
+                column.isHidden = hidden.contains(column.identifier.rawValue)
+            }
+        }
+
+        func installHeaderMenu() {
+            let menu = NSMenu()
+            menu.delegate = self
+            table?.headerView?.menu = menu
+        }
+
+        func menuNeedsUpdate(_ menu: NSMenu) {
+            menu.removeAllItems()
+            for column in table?.tableColumns ?? [] {
+                // The Name column stays: it anchors the register (and the menu).
+                guard column.identifier.rawValue != ColumnID.name.rawValue else { continue }
+                let item = NSMenuItem(title: column.title, action: #selector(toggleColumn(_:)), keyEquivalent: "")
+                item.target = self
+                item.state = column.isHidden ? .off : .on
+                item.representedObject = column
+                menu.addItem(item)
+            }
+        }
+
+        @objc private func toggleColumn(_ sender: NSMenuItem) {
+            guard let column = sender.representedObject as? NSTableColumn else { return }
+            column.isHidden.toggle()
+            let hidden = table?.tableColumns.filter(\.isHidden).map(\.identifier.rawValue) ?? []
+            UserDefaults.standard.set(hidden, forKey: Self.hiddenColumnsKey)
         }
 
         private func updateSortIndicator() {

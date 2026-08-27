@@ -45,8 +45,11 @@ public enum CBTaoImporter {
         public var balanceMismatches: [(name: String, stored: Decimal, computed: Decimal)]
     }
 
-    public struct ImportError: Error {
+    /// LocalizedError so a failed open shows the actual reason in the
+    /// system "could not be opened" alert instead of a generic message.
+    public struct ImportError: LocalizedError {
         public var message: String
+        public var errorDescription: String? { message }
     }
 
     public static func isCBTaoFile(_ data: Data) -> Bool {
