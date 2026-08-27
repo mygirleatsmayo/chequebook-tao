@@ -1,0 +1,24 @@
+name: Nicky
+description: Tell Lucas what broke or what you want changed.
+title: "[Nicky] "
+body:
+  - type: checkboxes
+    id: nicky
+    attributes:
+      label: Are you Nicky?
+      options:
+        - label: Yes, I'm Nicky.
+          required: true
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened
+      description: What you clicked, what you expected, what you got instead.
+      placeholder: I opened August. I expected my accounts. I got “could not be opened.”
+    validations:
+      required: true
+  - type: textarea
+    id: extras
+    attributes:
+      label: Screenshot or file
+      description: Drag a screenshot in here. If a file will not open, attach it (or a copy with private names changed).
