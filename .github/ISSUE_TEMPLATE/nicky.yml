@@ -1,6 +1,7 @@
 name: Nicky
 description: Bug or a change you want. For Nicky.
 title: "[Nicky] "
+assignee: ["mygirleatsmayo"]
 body:
   - type: checkboxes
     id: nicky

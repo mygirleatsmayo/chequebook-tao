@@ -4,7 +4,7 @@ The skills speak in terms of six canonical triage roles. This file maps those ro
 
 | Label in the mayo skills | Label in our tracker | Meaning |
 | --- | --- | --- |
-| `mayo-capture` | `mayo-capture` | Raw quick capture (bug, idea, todo) — flesh out with the maintainer before triage |
+| `mayo-capture` | `mayo-capture` | Lucas's raw quick capture (bug, idea, todo); flesh out with him before triage |
 | `needs-triage` | `needs-triage` | Maintainer needs to evaluate this issue |
 | `needs-info` | `needs-info` | Waiting on reporter for more information |
 | `ready-for-agent` | `ready-for-agent` | Fully specified, ready for an AFK agent |
