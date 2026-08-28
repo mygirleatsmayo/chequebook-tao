@@ -1,6 +1,6 @@
 name: Nicky
 description: Bug or a change you want. For Nicky.
-title: "[Nicky] *add a short, descriptive title* "
+title: "[Nicky] *add a short, descriptive title here*"
 assignees: ["mygirleatsmayo"]
 body:
   - type: checkboxes
